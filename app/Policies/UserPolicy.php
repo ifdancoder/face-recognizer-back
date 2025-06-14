@@ -29,7 +29,7 @@ class UserPolicy
      */
     public function create(User $user): bool
     {
-        return $user->is_admin;
+        return true;
     }
 
     /**
