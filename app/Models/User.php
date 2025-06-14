@@ -24,7 +24,8 @@ class User extends Authenticatable implements HasMedia
         'name',
         'email',
         'password',
-        'registered_at'
+        'registered_at',
+        'is_admin'
     ];
 
     /**
