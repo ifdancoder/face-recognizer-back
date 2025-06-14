@@ -29,7 +29,7 @@ class UserPolicy
      */
     public function create(User $user): bool
     {
-        return true;
+        return property_exists($user, 'is_admin') && $user->is_admin;
     }
 
     /**
@@ -53,7 +53,7 @@ class UserPolicy
      */
     public function deleteAny(User $user): bool
     {
-        return $user->is_admin;
+        return property_exists($user, 'is_admin') && $user->is_admin;
     }
 
     /**
@@ -85,7 +85,7 @@ class UserPolicy
      */
     public function reorder(User $user): bool
     {
-        return true;
+        return property_exists($user, 'is_admin') && $user->is_admin;
     }
 
     /**
