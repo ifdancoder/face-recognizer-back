@@ -11,6 +11,7 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class UserResource extends Resource
@@ -23,11 +24,20 @@ class UserResource extends Resource
     {
         return $form
             ->schema([
+                Forms\Components\Toggle::make('is_admin')
+                    ->visible(function (null|Model $record): bool {
+                        return auth()->user()->is_admin && auth()->user()->id != $record->id;
+                    }),
                 Forms\Components\TextInput::make('name')
                     ->required(),
                 Forms\Components\TextInput::make('email')
                     ->email()
                     ->required(),
+                Forms\Components\TextInput::make('password')
+                    ->password()
+                    ->visible(function (null|Model $record): bool {
+                        return auth()->user()->is_admin || auth()->user()->id == $record->id;
+                    }),
                 Forms\Components\SpatieMediaLibraryFileUpload::make('photos')
                     ->collection('dataset')
                     ->multiple()
