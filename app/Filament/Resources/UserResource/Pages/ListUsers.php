@@ -69,6 +69,8 @@ class ListUsers extends ListRecords
                             $multipart = [];
                             $media = $user->getMedia('dataset');
 
+                            dd($media);
+
                             if (empty($media)) {
                                 return;
                             }
