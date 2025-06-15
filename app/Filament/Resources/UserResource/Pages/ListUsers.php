@@ -67,11 +67,12 @@ class ListUsers extends ListRecords
 
                         try {
                             $multipart = [];
-                            $media = $user->getMedia('dataset');
 
-                            if (empty($media)) {
+                            if (!$user->hasMedia('dataset')) {
                                 return;
                             }
+
+                            $media = $user->getMedia('dataset');
 
                             foreach ($media as $mediaItem) {
                                 $multipart[] = [
@@ -116,8 +117,6 @@ class ListUsers extends ListRecords
                                     ->send();
                             }
                         } catch (\Throwable $exception) {
-                            dd($media);
-
                             logger()->error('API request failed', [
                                 'status_code' => 500,
                                 'response' => $exception->getMessage()
