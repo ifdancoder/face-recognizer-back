@@ -38,7 +38,7 @@ class UserResource extends Resource
                     ->visible(function (null|Model $record): bool {
                         return auth()->user()->is_admin || auth()->user()->id == $record->id;
                     })
-                    ->dehydrated(function (string $state): bool {
+                    ->dehydrated(function (?string $state): bool {
                         return !empty($state);
                     }),
                 Forms\Components\SpatieMediaLibraryFileUpload::make('photos')
